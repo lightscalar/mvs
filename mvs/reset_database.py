@@ -21,12 +21,13 @@ class Command(Pyro):
 class Target(Pyro):
     pass
 
-# Verify this is what we want.
+# Verify we actually want to nuke the database.
 proceed = input('> Are you sure you want to proceed? (y/n) ')
 if proceed == 'y':
     Experiment.delete_all()
     Command.delete_all()
     Target.delete_all()
+    print('> It is done.')
 else:
     print('> Chicken.')
 
