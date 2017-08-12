@@ -3,6 +3,7 @@ from camera import Camera
 from gevent.wsgi import WSGIServer
 import argparse
 from io import BytesIO
+from time import sleep
 import cv2
 
 ap = argparse.ArgumentParser()
@@ -28,6 +29,7 @@ def gen():
 @app.route('/video_feed') # Currently the webcam feed
 def video_feed():
     generate = gen()
+    sleep(1/20)
     return Response(generate, mimetype=\
             'multipart/x-mixed-replace; boundary=frame')
 
