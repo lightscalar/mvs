@@ -3,6 +3,7 @@ import requests
 from ipdb import set_trace as debug
 import subprocess
 import atexit
+from platform import Platform
 
 # Define base camera port number.
 BASE_PORT = 1493
@@ -21,6 +22,8 @@ class Module(object):
                 camera_port)
         self.binary_image_url = 'http://localhost:{}/current_binary_image'.\
                 format(self.camera_port)
+
+        self.platform = Platform()
 
         # Launch camera image server.
         self.boot_image_server()
@@ -48,11 +51,16 @@ class Module(object):
         print('Closing down image server.')
         self.image_server.kill()
 
-    def move_to_target(self, x, y, z):
+    def move_to_target(self, position):
         '''Move module's camera to specified target.'''
-        self.x = x
-        self.y = y
-        self.z = z
+        target = [
+            position['x'],
+            position['y'],
+            position['z']
+        ]
+
+        self.platform.move(target)
+
 
     def move(self, delta):
         '''Move up by increment dy.'''

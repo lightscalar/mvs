@@ -22,11 +22,8 @@ class Scheduler(threading.Thread):
 
         while self.keep_going:
             for item in self.schedule:
-
-                # Get the coordinates from the id of the next target.
-                destination = self.module.get_location(item[1])
-                # Move to the destination.
-                self.module.move(destination)
+                # Move to the coordinates given by the target id.
+                self.module.move(item[1])
                 #self.current = self.motor.get_location()
 
                 while time.time() < (item[0] + 1) or self.wait:

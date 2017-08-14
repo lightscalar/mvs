@@ -13,6 +13,7 @@ class MasterController(threading.Thread):
         self.module = module
         self.db = database
         self.keep_going = True
+        self.scheduler = Scheduler()
 
 
     def run(self):
@@ -56,9 +57,26 @@ class MasterController(threading.Thread):
             self.scheduler.add_location(times)
 
 
-
     def stop(self):
         '''Stop the thread loop.'''
         print('Stopping master controller for module {}'.\
                 format(self.module.module_id))
         self.keep_going = False
+
+
+    def move(self, target_id):
+        # Move to the target given by the id.
+
+        # Get the target.
+        query = { '_id': target_id }
+        target = self.db.targets.find_one(query)
+
+        # Move to the targets coordinates.
+        self.module.move_to_target(target['position'])
+
+
+
+
+
+
+# ---------------------------------------------------------------------------
