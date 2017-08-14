@@ -14,12 +14,13 @@ class Scheduler(threading.Thread):
         self.wait = False
         self.restart = False
         self.first = True
+        self.keep_going = True
 
 
     def run(self):
         self.stop = False
 
-        while True:
+        while self.keep_going:
             for item in self.schedule:
 
                 # Get the coordinates from the id of the next target.
@@ -66,6 +67,11 @@ class Scheduler(threading.Thread):
             # Start the schedule.
             self.start()
             self.first = False
+
+
+    def kill(self):
+        # Stop the scheduler.
+        self.keep_going = False
 
 
     def manual(self):
