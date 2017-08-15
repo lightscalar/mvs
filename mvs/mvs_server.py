@@ -37,8 +37,13 @@ class Unit(Pyro):
 class Target(Pyro):
     pass
 
+class Image(Pyro):
+    pass
+
+
 # Define relationships.
 Experiment.has_many(Target)
+Target.has_many(Image)
 
 # Register Modules,
 Unit.delete_all()

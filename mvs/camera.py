@@ -17,7 +17,10 @@ class Camera(object):
     def get_image(self):
         # Read an image and return it as a jpeg.
         _, frame = self.stream.read()
-        ret, jpeg = cv2.imencode(".jpg", frame)
+        try:
+            ret, jpeg = cv2.imencode(".jpg", frame)
+        except:
+            return False
         return jpeg.tobytes()
 
     def get_jpeg(self):

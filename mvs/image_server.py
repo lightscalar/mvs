@@ -22,8 +22,9 @@ app = Flask(__name__)
 def gen():
     while True:
         frame = camera.get_image()
-        yield (b'--frame\r\n'
-        b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        if frame:
+            yield (b'--frame\r\n'
+            b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 # Define route for the camera's video feed.
 @app.route('/video_feed') # Currently the webcam feed
