@@ -4,6 +4,7 @@ from master_controller import *
 from pyro.basics import *
 
 
+# Define currentl available units.
 AVAILABLE_UNITS = [('Unit-01', 0)]
 DATABASE_NAME = 'mvs_database'
 
