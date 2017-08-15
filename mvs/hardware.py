@@ -24,7 +24,7 @@ DR_TO_MM_PER_STEP = 1 / MM_PER_STEP_DR
 N_STEPS = 10
 
 
-class Platform(object):
+class Hardware(object):
     # Models the physical platform of the device.
     # Controls the three onboard motors.
 
@@ -232,7 +232,7 @@ if __name__ == '__main__':
     import pylab as plt
     plt.ion()
 
-    plat = Platform()
+    plat = Hardware()
 
     line = []
 

@@ -22,7 +22,7 @@ class MasterController(threading.Thread):
     def execute_command(self):
         '''Look for an active command in the database.'''
         commands = self.db.unit_commands
-        query = {'active': True, 'module_id': self.unit.unit_id}
+        query = {'active': True, 'unit_id': self.unit.unit_id}
         command_queue = list(commands.find(query))
         # for command in command_queue:
             # if command['type'] == 'move':

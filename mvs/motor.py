@@ -1,5 +1,8 @@
 import time
-import RPi.GPIO as GPIO # Raspberry Pi I/O library
+try:
+    import RPi.GPIO as GPIO # Raspberry Pi I/O library
+except:
+    GPIO = False
 import threading
 from math import cos, sin, atan2, sqrt, pi # For polar conversion.
 #from polar import *
@@ -54,6 +57,7 @@ class Motor(object):
 
     def __init__(self):
         # Set up for the Raspberry Pi
+        if not GPIO: return
         GPIO.setmode(GPIO.BOARD)
         GPIO.setwarnings(False)
 

@@ -3,7 +3,7 @@ import requests
 from ipdb import set_trace as debug
 import subprocess
 import atexit
-from platform import Platform
+from hardware import Hardware
 
 # Define base camera port number.
 BASE_PORT = 1493
@@ -11,11 +11,11 @@ BASE_PORT = 1493
 
 class Unit(object):
 
-    def __init__(self, module_id=0):
+    def __init__(self, unit_id=0):
 
         # Handle camera configuration.
-        self.module_id = module_id
-        self.camera_port = BASE_PORT + module_id
+        self.unit_id = unit_id
+        self.camera_port = BASE_PORT + unit_id
         self.video_url = 'http://localhost:{}/video_feed'.format(self.\
                 camera_port)
         self.image_url = 'http://localhost:{}/current_image'.format(self.\
@@ -35,8 +35,8 @@ class Unit(object):
         self.dy = 1
         self.dz = 1
 
-        # Create the platform.
-        self.platform = Platform()
+        # Create the Hardware.
+        self.hardware = Hardware()
 
         # Clean up on exit.
         atexit.register(self.close)
@@ -44,7 +44,7 @@ class Unit(object):
     def boot_image_server(self):
         '''Launch the image server associated with the module.'''
         cmds = ['python', 'image_server.py', '--port', str(self.camera_port),\
-                '--camera', str(self.module_id)]
+                '--camera', str(self.unit_id)]
         self.image_server = subprocess.Popen(cmds)
 
     def close(self):
@@ -66,12 +66,12 @@ class Unit(object):
             position['z']
         ]
         # Move
-        self.platform.generate_trajectory(target)
+        self.hardware.generate_trajectory(target)
 
     @property
     def location(self):
-        '''Return current location of platform.'''
-        return platform.location
+        '''Return current location of hardware.'''
+        return hardware.location
 
 
 if __name__=='__main__':
