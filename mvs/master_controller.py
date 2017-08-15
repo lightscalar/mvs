@@ -3,13 +3,13 @@ from time import sleep, time
 
 class MasterController(threading.Thread):
 
-    def __init__(self, module, database):
+    def __init__(self, unit, database):
 
         # We'll run in a separate thread.
         threading.Thread.__init__(self)
 
         # Attach modules, etc.
-        self.module = module
+        self.unit = unit
         self.db = database
         self.keep_going = True
 
@@ -21,9 +21,9 @@ class MasterController(threading.Thread):
 
     def execute_command(self):
         '''Look for an active command in the database.'''
-        commands = self.db.commands
-        query = {'active': True, 'module_id': self.module.module_id}
-        command_queue = commands.find(query)
+        commands = self.db.unit_commands
+        query = {'active': True, 'module_id': self.unit.unit_id}
+        command_queue = list(commands.find(query))
         # for command in command_queue:
             # if command['type'] == 'move':
             #     # Assume we have: 'delta' as [dx, dy, dz]
