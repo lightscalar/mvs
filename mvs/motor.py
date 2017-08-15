@@ -85,7 +85,7 @@ class Motor(object):
         #     self.move_z([steps[2]])
 
 
-    def move_r(self, steps, q):
+    def move_r(self, steps):
         # Move the R motor.
         channel = self.get_channels(1)
         if steps > 0:
@@ -94,7 +94,7 @@ class Motor(object):
             self._clockwise_turn(channel, abs(steps))
 
 
-    def move_theta(self, steps, q):
+    def move_theta(self, steps):
         # Move the theta motor.
         channel = self.get_channels(2)
         if steps < 0:
@@ -103,7 +103,7 @@ class Motor(object):
             self._clockwise_turn(channel, abs(steps))
 
 
-    def move_z(self, steps, q):
+    def move_z(self, steps):
         # Move the Z motor.
         channel = self.get_channels(3)
         if steps > 0:
