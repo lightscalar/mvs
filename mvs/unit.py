@@ -8,7 +8,7 @@ import atexit
 BASE_PORT = 1493
 
 
-class Module(object):
+class Unit(object):
 
     def __init__(self, module_id=0):
 
@@ -74,4 +74,4 @@ class Module(object):
 
 if __name__=='__main__':
 
-    module = Module()
+    unit = Unit()
