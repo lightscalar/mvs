@@ -11,6 +11,7 @@ BASE_PORT = 1493
 
 class Module(object):
 
+
     def __init__(self, module_id=0):
 
         # Handle camera configuration.
@@ -40,26 +41,30 @@ class Module(object):
         # Clean up on exit.
         atexit.register(self.close)
 
+
     def boot_image_server(self):
         '''Launch the image server associated with the module.'''
         cmds = ['python', 'image_server.py', '--port', str(self.camera_port),\
                 '--camera', str(self.module_id)]
         self.image_server = subprocess.Popen(cmds)
 
+
     def close(self):
         '''Close down image server.'''
         print('Closing down image server.')
         self.image_server.kill()
 
+
     def move_to_target(self, position):
         '''Move module's camera to specified target.'''
+        # Platform takes input as a list.
         target = [
             position['x'],
             position['y'],
             position['z']
         ]
-
-        self.platform.move(target)
+        # Move
+        self.platform.generate_trajectory(target)
 
 
     def move(self, delta):
@@ -69,10 +74,12 @@ class Module(object):
         z = self.z + delta[2]
         self.move_to_target(x, y, z)
 
+
     def take_picture(self):
         '''Take picture at current target position.'''
         response = requests.get(self.image_url)
         return response.content
+
 
     @property
     def current_location(self):

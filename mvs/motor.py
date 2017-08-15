@@ -2,7 +2,7 @@ import time
 import RPi.GPIO as GPIO # Raspberry Pi I/O library
 import threading
 from math import cos, sin, atan2, sqrt, pi # For polar conversion.
-from polar import *
+#from polar import *
 from queue import Queue
 
 

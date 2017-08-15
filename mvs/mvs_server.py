@@ -57,4 +57,3 @@ for name, module_id in AVAILABLE_MODULES:
 # Launch the server.
 app = Application(Pyro)
 app.run()
-
