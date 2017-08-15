@@ -11,13 +11,13 @@ client = MongoClient()
 database = client[DATABASE_NAME]
 
 # Instantiate available models.
-modules = {}
+units = {}
 for _, unit_id in AVAILABLE_UNITS:
-    units[unit_id] = Module(unit_id)
+    units[unit_id] = Unit(unit_id)
 
 # Construct a MasterController for each module.
 controllers = {}
-for unit_id, unit in unit.items():
+for unit_id, unit in units.items():
     controllers[unit_id] = MasterController(unit, database)
     controllers[unit_id].start()
 
@@ -27,7 +27,7 @@ Pyro.attach_db(database)
 class Experiment(Pyro):
     pass
 
-class Command(Pyro):
+class UnitCommand(Pyro):
     pass
 
 class Unit(Pyro):
@@ -38,7 +38,6 @@ class Target(Pyro):
 
 class Image(Pyro):
     pass
-
 
 # Define relationships.
 Experiment.has_many(Target)
